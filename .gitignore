@@ -7,3 +7,6 @@ inside-bdh/dist/
 .env.*
 !.env.example
 .DS_Store
+
+inside-bdh/src/index.backup.css
+inside-bdh/src/index.old.css
