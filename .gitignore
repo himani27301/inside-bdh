@@ -1,0 +1,9 @@
+inside-bdh/node_modules/
+inside-bdh/dist/
+**/__pycache__/
+*.pyc
+*.pt
+.env
+.env.*
+!.env.example
+.DS_Store
