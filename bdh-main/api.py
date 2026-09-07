@@ -13,10 +13,13 @@ CHECKPOINT = BASE_DIR / "bdh_trained.pt"
 app = FastAPI(title="Inside BDH API", version="1.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[
+        "https://inside-bdh-1.onrender.com",
+        "http://localhost:5173",
+    ],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
 )
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
