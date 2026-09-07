@@ -104,11 +104,12 @@ export default function App() {
     setLoading(true);
     setError("");
     try {
-      const x = await analyze(a.trim());`r`n      const y = await analyze(b.trim());
+      const x = await analyze(a.trim());
+      const y = await analyze(b.trim());
       setRa(x); setRb(y); setLayerIndex(0);
     } catch (e) {
       console.error(e);
-      setError("Backend not reachable. Keep `uvicorn api:app --reload` running in the backend folder.");
+      setError(e?.message || "Backend request failed");
     } finally {
       setLoading(false);
     }
