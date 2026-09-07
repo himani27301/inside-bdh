@@ -1,143 +1,182 @@
 # Inside BDH — See Sparsity Happen
 
-**Interactive educational microscope for Dragon Hatchling (BDH)**
+<p align="center">
+  <b>Change the input. Keep the checkpoint fixed. Watch BDH's sparse internal state change.</b>
+</p>
 
-Inside BDH lets a learner change two input sequences and inspect how the same trained toy BDH checkpoint changes internally. The experience focuses on one concrete claim:
+<p align="center">
+  <a href="https://inside-bdh-1.onrender.com"><b>🌐 Live Demo</b></a>
+  &nbsp;•&nbsp;
+  <a href="https://inside-bdh.onrender.com"><b>⚙️ Backend API</b></a>
+  &nbsp;•&nbsp;
+  <a href="https://github.com/himani27301/inside-bdh"><b>💻 Repository</b></a>
+</p>
+
+---
+
+## ✨ Project Preview
+
+![Inside BDH UI](assets/hero.png)
+
+**Inside BDH** is an interactive educational artifact for exploring one specific mechanism inside a Dragon Hatchling (BDH) model:
 
 > **BDH converts a signed latent projection into an input-dependent, non-negative sparse state; changing the input changes which latent units survive.**
 
-## Live Links
+Instead of only reading about sparsity, the learner changes the input and inspects the model's **real intermediate states** layer-by-layer.
 
-- **Public artifact:** https://inside-bdh-1.onrender.com
-- **Backend API:** https://inside-bdh.onrender.com
-- **Source repository:** https://github.com/himani27301/inside-bdh
+---
 
-## What the learner can do
+## 🎯 What problem are we solving?
 
-The learner can:
+Sparse neural computation is usually explained through equations, papers, or static diagrams. That makes it hard to build intuition for what actually changes inside a model when the input changes.
 
-- compare two input sequences using the same BDH checkpoint
-- inspect all 6 BDH layers
-- compare X-sparse, Y-sparse, and XY-interaction activity
-- inspect strongest latent units and head activity
-- view the **pre-ReLU → post-ReLU** transformation directly
-- compare expected zeroing from ReLU with the observed post-ReLU state
-- test natural language, repetition, and noisy input presets
-- complete a short ReLU prediction challenge
+Inside BDH turns that idea into an experiment:
 
-## Why this exists
+1. choose two sequences
+2. keep the same trained checkpoint
+3. run both inputs
+4. compare the internal sparse states
+5. inspect which latent units survive
+6. see exactly what ReLU clips to zero
 
-Many descriptions of sparse neural computation stay abstract. Inside BDH turns the mechanism into something visible and testable: change only the input, keep the model fixed, and inspect the internal consequences.
+The important idea is that the **model stays fixed while the input changes**.
 
-The goal is not to explain all of BDH. It is to make one technical mechanism understandable and reproducible in under a minute.
+---
 
-## Intended audience
+## 🧪 What can the learner inspect?
 
-Designed for:
+### Same checkpoint, different input
+The comparison keeps the model fixed and changes only the input.
 
-- undergraduate or early postgraduate students in AI/ML
-- developers who understand basic neural-network terminology
-- data scientists who know activations, layers, and ReLU but have not studied BDH
+### Six BDH layers
+For each layer, the UI compares:
+- X sparse activity
+- Y sparse activity
+- XY interaction activity
+- maximum activation
+- strongest latent units
+- head-level activity
+- overlap between top units
 
-### Prerequisites
+### Before ReLU → After ReLU
+The artifact exposes sampled values before and after ReLU.
 
-Helpful background:
+```text
+pre-ReLU:  -0.82
+post-ReLU:  0
+```
 
-- neural-network layers
-- activation functions
-- ReLU
-- basic attention / sequence-model concepts
+```text
+pre-ReLU:   1.24
+post-ReLU:  1.24
+```
 
-No prior BDH knowledge is required.
+Negative values are clipped to zero while positive values survive.
 
-## System architecture
+### ReLU consistency check
+The UI compares expected zeroing behaviour with the observed post-ReLU zero rate for the sampled values.
+
+### ReLU challenge
+A short prediction activity asks the learner to predict the output of ReLU before revealing the result.
+
+---
+
+## 📊 Example Output
+
+![Inside BDH results](assets/results.png)
+
+The output is generated from a real forward pass through the deployed toy checkpoint rather than hard-coded example values.
+
+---
+
+## 🏗️ Architecture
+
+![Inside BDH architecture](assets/architecture.svg)
 
 ```text
 React / Vite frontend
         ↓
 FastAPI backend
         ↓
-Trained toy BDH checkpoint
+PyTorch BDH checkpoint
         ↓
-Internal-state extraction
+Intermediate tensor extraction
         ↓
-Layer / unit / ReLU visualizations
+Sparse-state / ReLU / head visualizations
 ```
 
-### Frontend
+---
 
-The frontend is built with React + Vite and provides:
-
-- controlled input presets
-- A/B comparison
-- layer selection
-- internal-state visualizations
-- ReLU teaching view
-- short learner challenge
-
-### Backend
-
-The backend is built with FastAPI and PyTorch. It:
-
-1. loads the BDH checkpoint
-2. receives text input
-3. runs the same model for each input
-4. captures intermediate tensors
-5. returns measurements for the frontend
-
-## What is live vs. precomputed
+## 🔴 What is live?
 
 | Component | Status |
 |---|---|
-| Text input | Live |
-| BDH forward pass | Live |
-| Layer activations | Live |
-| ReLU measurements | Live |
-| Strongest-unit extraction | Live |
-| Visual layout / animation | Presentation layer |
-| Published BDH claims | Referenced research, not generated by this toy checkpoint |
+| User text input | **Live** |
+| BDH forward pass | **Live** |
+| Layer measurements | **Live** |
+| Sparse activity | **Live** |
+| Strongest-unit extraction | **Live** |
+| Head activity | **Live** |
+| Pre-ReLU / post-ReLU values | **Live** |
+| UI animation and layout | Presentation layer |
+| Published BDH claims | Referenced research |
 
-## Model used in this project
+---
 
-This project uses a **toy BDH checkpoint** trained on Tiny Shakespeare for the purpose of making the internal mechanism explorable.
+## 🤖 Model used in this artifact
 
-It is **not** a reproduction of Pathway's large-scale published BDH results and should not be interpreted as one.
-
-The toy model is used as a real computational substrate for teaching and experimentation.
-
-## ReLU teaching view
-
-For each selected layer, the interface exposes values before and after ReLU.
-
-For a pre-ReLU value:
+For the educational demo we use a **small toy BDH checkpoint** trained on **Tiny Shakespeare**.
 
 ```text
-x_latent = -0.82
+Layers:       6
+Embedding:    256
+Heads:        4
+Vocabulary:   256 byte values
+Dataset:      Tiny Shakespeare
 ```
 
-ReLU produces:
+This checkpoint exists so that the internal mechanism can be explored interactively.
 
-```text
-x_sparse = 0
-```
+> It is **not** a reproduction of Pathway's large-scale published BDH results. The interface deliberately separates observations from our toy checkpoint from claims reported in published work.
 
-For a positive value:
+---
 
-```text
-x_latent = 1.24
-```
+## 🧰 Tech stack
 
-ReLU preserves it:
+### Frontend
+- React
+- Vite
+- responsive CSS
+- animated interaction and visualization
 
-```text
-x_sparse = 1.24
-```
+### Backend
+- FastAPI
+- Uvicorn
+- Python
 
-The interface compares the expected percentage of values that should become zero with the observed post-ReLU zero rate.
+### Model
+- PyTorch
+- BDH implementation
+- trained toy checkpoint
 
-## Example experiment
+### Deployment
+- Render Static Site — frontend
+- Render Web Service — backend
+- GitHub — source repository
 
-Try:
+---
+
+## 🚀 Live links
+
+**Frontend:** https://inside-bdh-1.onrender.com
+
+**Backend:** https://inside-bdh.onrender.com
+
+> The hosted backend may take a few seconds to wake after inactivity.
+
+---
+
+## 🧭 Suggested demo
 
 **Input A**
 ```text
@@ -152,24 +191,57 @@ A A A A A A A A A A A A
 Then:
 
 1. click **Compare Internal States**
-2. switch between layers 1–6
+2. switch between Layers 1–6
 3. compare sparse activity
 4. inspect strongest units
-5. inspect the pre-ReLU → post-ReLU section
-6. try the Noise preset
+5. inspect head activity
+6. inspect **Before ReLU → After ReLU**
+7. try the Noise preset
+8. answer the ReLU challenge
 
-The model stays fixed; only the input changes.
+---
 
-## Local setup
+## 📁 Project structure
 
-### 1. Clone the repository
+```text
+inside-bdh/
+│
+├── bdh-main/
+│   ├── api.py
+│   ├── bdh.py
+│   ├── train.py
+│   ├── analyze.py
+│   └── requirements.txt
+│
+├── inside-bdh/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   └── index.css
+│   ├── public/
+│   └── package.json
+│
+├── assets/
+│   ├── hero.png
+│   ├── results.png
+│   └── architecture.svg
+│
+├── README.md
+├── SOURCES_AND_LICENSES.md
+└── AI_DISCLOSURE.md
+```
+
+---
+
+## 🖥️ Run locally
+
+### 1. Clone
 
 ```bash
 git clone https://github.com/himani27301/inside-bdh.git
 cd inside-bdh
 ```
 
-### 2. Start the backend
+### 2. Backend
 
 ```bash
 cd bdh-main
@@ -178,14 +250,13 @@ uvicorn api:app --reload
 ```
 
 Backend:
-
 ```text
 http://127.0.0.1:8000
 ```
 
-### 3. Start the frontend
+### 3. Frontend
 
-Open a second terminal:
+Open another terminal:
 
 ```bash
 cd inside-bdh
@@ -194,72 +265,60 @@ npm run dev
 ```
 
 Frontend:
-
 ```text
 http://localhost:5173
 ```
 
-> For local development, set the frontend API URL to `http://127.0.0.1:8000/analyze` if needed.
+For local development, point the frontend API URL to:
+```text
+http://127.0.0.1:8000/analyze
+```
 
-## Deployment
+---
 
-Current deployment:
+## 🧠 Educational design
 
-- frontend: Render Static Site
-- backend: Render Web Service
+The artifact is deliberately centered around **one testable claim** rather than trying to visualize every mechanism in BDH.
 
-The deployed frontend communicates with the deployed FastAPI backend, so the public artifact works without a local server running.
+```text
+Change input
+    ↓
+Run same checkpoint
+    ↓
+Inspect sparse state
+    ↓
+Compare layers / units / heads
+    ↓
+Inspect ReLU transformation
+    ↓
+Test understanding
+```
 
-## Limitations
+---
 
-The most important limitations are:
+## ⚠️ Limitations
 
-- the checkpoint is small and trained on a toy corpus
-- the displayed measurements describe this checkpoint, not all BDH systems
-- the visualization focuses on selected internal measurements rather than every BDH mechanism
-- activation overlap does not by itself prove semantic interpretability
-- UI animation is explanatory/presentational; the numerical state shown by the interface comes from the real model run
+- the checkpoint is intentionally small
+- it is trained on a toy corpus
+- strongest-unit overlap does not by itself imply semantic interpretability
+- only selected internal measurements are visualized
+- observations from this checkpoint should not be generalized to every BDH system
+- published BDH claims and our toy-checkpoint observations are kept separate
 
-## Research and evidence discipline
+---
 
-This project separates:
+## 📚 Credits, reuse and disclosure
 
-1. **what the live toy checkpoint demonstrates**
-2. **what published BDH work reports**
-
-The two should not be treated as equivalent. Published BDH claims should be checked against the cited primary sources.
-
-## Sources, licenses, and reuse
+The BDH implementation used by this project is based on Pathway's public BDH codebase.
 
 See:
-
 - `SOURCES_AND_LICENSES.md`
 - `AI_DISCLOSURE.md`
 
-The BDH implementation used by this project is based on Pathway's public BDH codebase. External code, data, weights, assets, and reused components should be credited in the source/license record.
+for reused code, external resources, licenses, and tooling disclosure.
 
-## AI assistance
+---
 
-AI tools were used for coding assistance, debugging, UI iteration, and documentation support. The team implemented, tested, modified, and validated the final system and is responsible for the submitted behavior and claims.
+## 💡 Core takeaway
 
-## Submission files
-
-Recommended final submission package:
-
-```text
-INSIDE_BDH_FINAL.zip
-├── source code
-├── README.md
-├── SOURCES_AND_LICENSES.md
-├── AI_DISCLOSURE.md
-├── INSIDE_BDH_CONCEPT_SUMMARY.pdf
-└── INSIDE_BDH_BLOG.pdf
-```
-
-## Project title
-
-**Inside BDH — See Sparsity Happen**
-
-## One-line description
-
-An interactive educational microscope that lets learners change input sequences and directly inspect how a trained toy BDH model transforms signed latent projections into input-dependent, non-negative sparse internal states.
+**Don't just tell learners that sparsity happens. Let them change the input and watch the sparse internal state change.**

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" viewBox="0 0 1400 520">
+  <rect width="1400" height="520" fill="#f7f2e9"/>
+  <text x="70" y="70" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#14243a">Inside BDH — System Architecture</text>
+  <text x="70" y="108" font-family="Arial, sans-serif" font-size="18" fill="#677383">A live educational microscope for inspecting sparse internal states.</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="80" y="180" width="250" height="150" rx="24" fill="#fffdf8" stroke="#14243a" stroke-width="3"/>
+    <rect x="80" y="180" width="250" height="12" rx="6" fill="#2fc7bd"/>
+    <text x="115" y="235" font-size="24" font-weight="700" fill="#14243a">React + Vite</text>
+    <text x="115" y="272" font-size="18" fill="#677383">Input A / Input B</text>
+    <text x="115" y="300" font-size="18" fill="#677383">Interactive controls</text>
+
+    <rect x="430" y="180" width="250" height="150" rx="24" fill="#fffdf8" stroke="#14243a" stroke-width="3"/>
+    <rect x="430" y="180" width="250" height="12" rx="6" fill="#3f58e8"/>
+    <text x="465" y="235" font-size="24" font-weight="700" fill="#14243a">FastAPI</text>
+    <text x="465" y="272" font-size="18" fill="#677383">POST /analyze</text>
+    <text x="465" y="300" font-size="18" fill="#677383">State extraction API</text>
+
+    <rect x="780" y="180" width="250" height="150" rx="24" fill="#fffdf8" stroke="#14243a" stroke-width="3"/>
+    <rect x="780" y="180" width="250" height="12" rx="6" fill="#ff725e"/>
+    <text x="815" y="235" font-size="24" font-weight="700" fill="#14243a">PyTorch BDH</text>
+    <text x="815" y="272" font-size="18" fill="#677383">6-layer toy checkpoint</text>
+    <text x="815" y="300" font-size="18" fill="#677383">Tiny Shakespeare</text>
+
+    <rect x="1130" y="180" width="190" height="150" rx="24" fill="#fffdf8" stroke="#14243a" stroke-width="3"/>
+    <rect x="1130" y="180" width="190" height="12" rx="6" fill="#cce95c"/>
+    <text x="1165" y="235" font-size="24" font-weight="700" fill="#14243a">Visuals</text>
+    <text x="1165" y="272" font-size="18" fill="#677383">ReLU</text>
+    <text x="1165" y="300" font-size="18" fill="#677383">Units / heads</text>
+
+    <g stroke="#14243a" stroke-width="4" fill="none">
+      <path d="M330 255 H420"/>
+      <path d="M680 255 H770"/>
+      <path d="M1030 255 H1120"/>
+    </g>
+    <g fill="#14243a">
+      <polygon points="420,255 405,246 405,264"/>
+      <polygon points="770,255 755,246 755,264"/>
+      <polygon points="1120,255 1105,246 1105,264"/>
+    </g>
+  </g>
+</svg>
