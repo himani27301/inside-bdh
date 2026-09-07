@@ -104,7 +104,7 @@ export default function App() {
     setLoading(true);
     setError("");
     try {
-      const [x, y] = await Promise.all([analyze(a.trim()), analyze(b.trim())]);
+      const x = await analyze(a.trim());`r`n      const y = await analyze(b.trim());
       setRa(x); setRb(y); setLayerIndex(0);
     } catch (e) {
       console.error(e);
@@ -236,4 +236,6 @@ export default function App() {
     </div>
   );
 }
+
+
 
