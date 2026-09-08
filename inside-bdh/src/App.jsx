@@ -151,7 +151,8 @@ export default function App() {
         </section>
 
         <button className="run" onClick={run} disabled={loading}>{loading ? "RUNNING REAL MODEL…" : "COMPARE INTERNAL STATES →"}</button>
-        {error && <div className="error">{error}</div>}
+
+      {error && <div className="error">{error}</div>}
 
         {la && lb && <>
           <section className="results-title">
