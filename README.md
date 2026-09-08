@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://inside-bdh-1.onrender.com"><b>🌐 Live Demo</b></a>
+  <a href="PASTE_YOUR_NEW_FRONTEND_RENDER_URL_HERE"><b>🌐 Live Demo</b></a>
   &nbsp;•&nbsp;
   <a href="https://inside-bdh.onrender.com"><b>⚙️ Backend API</b></a>
   &nbsp;•&nbsp;
@@ -168,7 +168,7 @@ This checkpoint exists so that the internal mechanism can be explored interactiv
 
 ## 🚀 Live links
 
-**Frontend:** https://inside-bdh-1.onrender.com
+**Frontend:** PASTE_YOUR_NEW_FRONTEND_RENDER_URL_HERE
 
 **Backend:** https://inside-bdh.onrender.com
 
@@ -322,3 +322,4 @@ for reused code, external resources, licenses, and tooling disclosure.
 ## 💡 Core takeaway
 
 **Don't just tell learners that sparsity happens. Let them change the input and watch the sparse internal state change.**
+
