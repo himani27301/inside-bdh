@@ -63,9 +63,13 @@ def analyze(request: AnalyzeRequest):
         "layers": states,
     }
 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://inside-bdh-jm7d.onrender.com",
+        "http://localhost:5173",
+    ],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
