@@ -11,17 +11,6 @@ BASE_DIR = Path(__file__).resolve().parent
 CHECKPOINT = BASE_DIR / "bdh_trained.pt"
 
 app = FastAPI(title="Inside BDH API", version="1.0")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://inside-bdh-1.onrender.com",
-        "http://localhost:5173",
-    ],
-    allow_credentials=False,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type"],
-)
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = bdh.BDH(bdh.BDHConfig()).to(device)
 
@@ -73,7 +62,6 @@ def analyze(request: AnalyzeRequest):
         "live": True,
         "layers": states,
     }
-from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
     CORSMiddleware,
