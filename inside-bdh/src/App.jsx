@@ -1,8 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 
 const API_URL = "https://inside-bdh1.onrender.com/analyze";
-
+useEffect(() => {
+  fetch("https://inside-bdh1.onrender.com/")
+    .catch(() => {});
+}, []);
 async function analyze(text) {
   const r = await fetch(API_URL, {
     method: "POST",
