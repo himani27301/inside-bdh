@@ -1,20 +1,20 @@
-# Inside BDH — See Sparsity Happen
+# Inside BDH â€” See Sparsity Happen
 
 <p align="center">
   <b>Change the input. Keep the checkpoint fixed. Watch BDH's sparse internal state change.</b>
 </p>
 
 <p align="center">
-  <a href="https://inside-bdh-jm7d.onrender.com"><b>🌐 Live Demo</b></a>
-  &nbsp;•&nbsp;
-  <a href="https://inside-bdh1.onrender.com"><b>⚙️ Backend API</b></a>
-  &nbsp;•&nbsp;
-  <a href="https://github.com/himani27301/inside-bdh"><b>💻 Repository</b></a>
+  <a href="https://inside-bdh-jm7d.onrender.com"><b>ðŸŒ Live Demo</b></a>
+  &nbsp;â€¢&nbsp;
+  <a href="https://inside-bdh1.onrender.com"><b>âš™ï¸ Backend API</b></a>
+  &nbsp;â€¢&nbsp;
+  <a href="https://github.com/himani27301/inside-bdh"><b>ðŸ’» Repository</b></a>
 </p>
 
 ---
 
-## ✨ Project Preview
+## âœ¨ Project Preview
 
 ![Inside BDH UI](assets/hero.png)
 
@@ -26,7 +26,7 @@ Instead of only reading about sparsity, the learner changes the input and inspec
 
 ---
 
-## 🎯 What Problem Are We Solving?
+## ðŸŽ¯ What Problem Are We Solving?
 
 Sparse neural computation is usually explained through equations, research papers, or static diagrams.
 
@@ -53,7 +53,7 @@ That makes it easier to observe how the internal computation changes because of 
 
 ---
 
-## 🧪 What Can the Learner Inspect?
+## ðŸ§ª What Can the Learner Inspect?
 
 ### 1. Same Checkpoint, Different Input
 
@@ -67,5 +67,5 @@ They are comparing:
 Same Model
    +
 Different Input
-   ↓
+   â†“
 Different Internal State
