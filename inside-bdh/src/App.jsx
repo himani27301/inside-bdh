@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./index.css";
 
 const API_URL = "https://inside-bdh1.onrender.com/analyze";
-useEffect(() => {
-  fetch("https://inside-bdh1.onrender.com/")
-    .catch(() => {});
-}, []);
 const x = await analyze(a.trim());
 const y = await analyze(b.trim());
 async function analyze(text) {
