@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import "./index.css";
 
-const API_URL = "https://inside-bdh.onrender.com/analyze";
+const API_URL = "https://inside-bdh1.onrender.com/analyze";
 
 async function analyze(text) {
   const r = await fetch(API_URL, {
@@ -43,7 +43,7 @@ function Neurons({ units = [] }) {
           <div
             className="neuron"
             key={`${u.unit}-${i}`}
-            title={`Unit ${u.unit} â€¢ ${Number(u.activation).toFixed(4)}`}
+            title={`Unit ${u.unit} • ${Number(u.activation).toFixed(4)}`}
             style={{ opacity: 0.25 + s * 0.75, transform: `scale(${0.75 + s * 0.25})` }}
           />
         );
@@ -56,23 +56,23 @@ function ReLUView({ examples = [], expected, observed }) {
   return (
     <section className="panel relu-panel">
       <div className="section-kicker">MECHANISM</div>
-      <h2>Before ReLU â†’ after ReLU</h2>
+      <h2>Before ReLU → after ReLU</h2>
       <p className="muted">These are real values from the selected BDH layer. Negative values are clipped to zero; positive values survive.</p>
 
       <div className="relu-grid">
         {examples.slice(0, 12).map((x) => (
           <div className="relu-pair" key={x.unit}>
             <div className={x.pre <= 0 ? "pre negative" : "pre positive"}>{Number(x.pre).toFixed(2)}</div>
-            <div className="relu-arrow">â†“</div>
+            <div className="relu-arrow">↓</div>
             <div className={x.post === 0 ? "post zero" : "post positive"}>{Number(x.post).toFixed(2)}</div>
           </div>
         ))}
       </div>
 
       <div className="truth-row">
-        <div><span>Expected zeros from pre-ReLU â‰¤ 0</span><strong>{Number(expected).toFixed(2)}%</strong></div>
+        <div><span>Expected zeros from pre-ReLU ≤ 0</span><strong>{Number(expected).toFixed(2)}%</strong></div>
         <div><span>Observed zeros after ReLU</span><strong>{Number(observed).toFixed(2)}%</strong></div>
-        <div className="match"><span>Mechanism check</span><strong>âœ“ MATCH</strong></div>
+        <div className="match"><span>Mechanism check</span><strong>✓ MATCH</strong></div>
       </div>
     </section>
   );
@@ -124,7 +124,7 @@ export default function App() {
 
       <main>
         <section className="hero">
-          <div className="section-kicker">DATAFORGE â€¢ PATHWAY TRACK</div>
+          <div className="section-kicker">DATAFORGE • PATHWAY TRACK</div>
           <h1>See sparsity happen.<br/><span>Not just hear about it.</span></h1>
           <p>Change only the input, then inspect the real pre-ReLU and post-ReLU states of the same trained toy BDH checkpoint.</p>
           <div className="claim"><b>ONE-SENTENCE CLAIM</b> BDH converts a signed latent projection into an input-dependent, non-negative sparse state; changing the input changes which latent units survive.</div>
@@ -150,7 +150,7 @@ export default function App() {
           </div>
         </section>
 
-        <button className="run" onClick={run} disabled={loading}>{loading ? "RUNNING REAL MODELâ€¦" : "COMPARE INTERNAL STATES â†’"}</button>
+        <button className="run" onClick={run} disabled={loading}>{loading ? "RUNNING REAL MODEL…" : "COMPARE INTERNAL STATES →"}</button>
 
       {error && <div className="error">{error}</div>}
 
@@ -165,7 +165,7 @@ export default function App() {
           </div>
 
           <section className="metrics panel">
-            <div className="metric-head"><span>Metric</span><span>Input A</span><span>Input B</span><span>Î” Bâˆ’A</span></div>
+            <div className="metric-head"><span>Metric</span><span>Input A</span><span>Input B</span><span>Δ B−A</span></div>
             {[
               ["X active", la.x_active_percent, lb.x_active_percent, "%"],
               ["Y active", la.y_active_percent, lb.y_active_percent, "%"],
@@ -183,13 +183,13 @@ export default function App() {
 
           <section className="two-col">
             <div className="panel">
-              <div className="section-kicker">INPUT A â€¢ LAYER {la.layer}</div>
+              <div className="section-kicker">INPUT A • LAYER {la.layer}</div>
               <h3>Strongest units</h3>
               <Neurons units={la.last_token_top_units} />
               <div className="heads">{la.head_activity_percent.map((v,i)=><Bar key={i} label={`Head ${i+1}`} value={v}/>)}</div>
             </div>
             <div className="panel">
-              <div className="section-kicker">INPUT B â€¢ LAYER {lb.layer}</div>
+              <div className="section-kicker">INPUT B • LAYER {lb.layer}</div>
               <h3>Strongest units</h3>
               <Neurons units={lb.last_token_top_units} />
               <div className="heads">{lb.head_activity_percent.map((v,i)=><Bar key={i} label={`Head ${i+1}`} value={v}/>)}</div>
@@ -204,7 +204,7 @@ export default function App() {
 
           <section className="panel evidence">
             <div className="section-kicker">EVIDENCE DISCIPLINE</div>
-            <h2>Published BDH â‰  this toy checkpoint</h2>
+            <h2>Published BDH ≠ this toy checkpoint</h2>
             <div className="evidence-grid">
               <div><b>Published BDH</b><p>Pathway reports roughly 5% active neurons in reported BDH runs, with activity varying by predictability.</p></div>
               <div><b>Our live experiment</b><p>This is an independently trained byte-level toy BDH checkpoint on Tiny Shakespeare. Its percentages are measurements of this checkpoint only.</p></div>
@@ -221,20 +221,20 @@ export default function App() {
               <button onClick={()=>setQuiz(true)}>[0, 0.8, 0, 2.1]</button>
               <button onClick={()=>setQuiz(false)}>[1.2, 0.8, 0.3, 2.1]</button>
             </div>
-            {quiz === true && <div className="correct">âœ“ Correct â€” negative values become zero; positive values survive.</div>}
+            {quiz === true && <div className="correct">✓ Correct — negative values become zero; positive values survive.</div>}
             {quiz === false && <div className="wrong">Try again: ReLU is max(0, x).</div>}
           </section>
 
           <section className="panel architecture">
             <div className="section-kicker">WHERE THIS SITS IN BDH</div>
             <h2>From projection to sparse state</h2>
-            <div className="flow"><span>Input bytes</span><i>â†’</i><span>Embedding</span><i>â†’</i><span>x_latent = x @ encoder</span><i>â†’</i><span className="highlight">x_sparse = ReLU(x_latent)</span><i>â†’</i><span>attention / memory interaction</span></div>
+            <div className="flow"><span>Input bytes</span><i>→</i><span>Embedding</span><i>→</i><span>x_latent = x @ encoder</span><i>→</i><span className="highlight">x_sparse = ReLU(x_latent)</span><i>→</i><span>attention / memory interaction</span></div>
             <pre>{`x_latent = x @ self.encoder\nx_sparse = F.relu(x_latent)`}</pre>
           </section>
         </>}
       </main>
 
-      <footer>INSIDE BDH â€¢ interactive educational artifact â€¢ toy checkpoint clearly labeled</footer>
+      <footer>INSIDE BDH • interactive educational artifact • toy checkpoint clearly labeled</footer>
     </div>
   );
 }
