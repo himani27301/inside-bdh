@@ -6,6 +6,8 @@ useEffect(() => {
   fetch("https://inside-bdh1.onrender.com/")
     .catch(() => {});
 }, []);
+const x = await analyze(a.trim());
+const y = await analyze(b.trim());
 async function analyze(text) {
   const r = await fetch(API_URL, {
     method: "POST",
