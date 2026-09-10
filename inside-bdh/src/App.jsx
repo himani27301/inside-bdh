@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./index.css";
 
 const API_URL = "https://inside-bdh1.onrender.com/analyze";
-const x = await analyze(a.trim());
-const y = await analyze(b.trim());
+
 async function analyze(text) {
   const r = await fetch(API_URL, {
     method: "POST",
@@ -153,7 +152,7 @@ export default function App() {
 
         <button className="run" onClick={run} disabled={loading}>{loading ? "RUNNING REAL MODEL…" : "COMPARE INTERNAL STATES →"}</button>
 
-      {error && <div className="error">{error}</div>}
+        {error && <div className="error">{error}</div>}
 
         {la && lb && <>
           <section className="results-title">
@@ -239,6 +238,3 @@ export default function App() {
     </div>
   );
 }
-
-
-
